@@ -185,7 +185,58 @@
 3. 유닛 테스트를 작성합니다.
     - 블라블라
 4. 디렉토리 구조를 논리적으로 배치합니다.
-    - 블라블라
+    - **DDD(Domain-Driven-Design)** 계층 구조를 기반으로 디렉토리 구조를 설계하였습니다.
+    - **Presentation**
+        - 클라이언트와 상호작용하는 계층입니다. 클라이언트 요청을 처리하고 적절한 응답을 반환합니다.
+        - @RestController 어노테이션을 사용하는 `Controller` 클래스들이 위치합니다.
+        - 클라이언트와 상호작용 할 때 사용하는 `DTO`(Request, Response)를 명세하고 관리합니다.
+    - **Application**
+        - 비즈니스 로직을 정의하고 도메인 계층과 인프라스트럭쳐 계층을 연결하는 계층입니다. 도메인 객체와 협력하여 애플리케이션의 주요 기능을 제공합니다.
+        - @Service 어노테이션을 사용하는 `Service` 클래스들이 위치합니다.
+    - **Domain**
+        - 도메인의 핵심 비즈니스 개념과 규칙을 담고 있는 계층입니다.
+        - @Entity 어노테이션을 사용하는 `Entity` 클래스들이 위치합니다.
+        - 도메인 객체의 영속성을 처리하는 `Repository Interface`가 위치하여 계층 간의 결합을 느슨하게 만드는 데 도움을 줍니다.
+    - **Infra**
+        - 외부와 통신(DB)을 담당하는 계층입니다.
+        - `Repository Interface`의 구현체가 위치합니다. Spring Data JPA와 같은 ORM 프레임워크를 사용하여 구현합니다.
+    - **Common**
+        - 프로젝트 전반에 걸쳐 공통적으로 사용되는 클래스와 설정 파일을 관리하는 계층입니다.
+    ```mermaid
+    graph LR
+        subgraph 4Layer
+    	    direction TB
+    	    
+    	    subgraph Presentation
+    	        direction LR
+    	        B[Controller] --- F[DTO]
+    	    end
+    	
+    	    subgraph Application
+    	        direction LR
+    	        C[Service]
+    	    end
+    	
+    	    subgraph Domain
+    	        direction LR
+    	        D[Entity] --- E[Repository]
+    	    end
+    	
+    	    subgraph Infra
+    	        direction LR
+    	        J[RepositoryImpl]
+    	    end
+    	
+    	    Presentation --> Application --> Domain --> Infra
+        end
+        
+        subgraph Common
+            direction LR
+            K[Configuration] --- L[Exception]
+        end
+    
+        4Layer --> Common
+    ```
 5. 디자인패턴을 적절히 사용합니다.
     - 블라블라
 
