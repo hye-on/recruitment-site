@@ -9,4 +9,5 @@ import com.wanted.wanted_pre_onboarding_backend.domain.entity.JobSkill;
 
 @Repository
 public interface JpaJobSkillRepository extends JpaRepository<JobSkill, UUID> {
+
 }

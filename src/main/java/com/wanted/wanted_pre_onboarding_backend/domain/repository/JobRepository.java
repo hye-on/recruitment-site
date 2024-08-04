@@ -17,4 +17,6 @@ public interface JobRepository {
 
 	List<Job> findBySearchKeyword(String search);
 
+	List<Job> findAll();
+
 }

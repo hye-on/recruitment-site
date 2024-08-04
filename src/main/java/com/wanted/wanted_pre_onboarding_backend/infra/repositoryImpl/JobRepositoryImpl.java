@@ -44,4 +44,10 @@ public class JobRepositoryImpl implements JobRepository {
 		Specification<Job> spec = JpaJobSpecification.searchInAllFields(search);
 		return jpaJobRepository.findAll(spec);
 	}
+
+	@Override
+	public List<Job> findAll() {
+		return jpaJobRepository.findAll();
+	}
+
 }
