@@ -9,6 +9,5 @@ import com.wanted.wanted_pre_onboarding_backend.domain.entity.Company;
 
 @Repository
 public interface JpaCompanyRepository extends JpaRepository<Company, UUID> {
-	;
 
 }
