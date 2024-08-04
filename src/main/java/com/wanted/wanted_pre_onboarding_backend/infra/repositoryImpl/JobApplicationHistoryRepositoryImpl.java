@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
+import com.wanted.wanted_pre_onboarding_backend.domain.entity.JobApplicationHistory;
 import com.wanted.wanted_pre_onboarding_backend.domain.repository.JobApplicationHistoryRepository;
 import com.wanted.wanted_pre_onboarding_backend.infra.jpa.JpaJobApplicationHistoryRepository;
 
@@ -17,5 +18,10 @@ public class JobApplicationHistoryRepositoryImpl implements JobApplicationHistor
 	@Override
 	public boolean exists(UUID userId, UUID jobId) {
 		return jpaJobApplicationHistoryRepository.existsByUser_IdAndJob_Id(userId, jobId);
+	}
+
+	@Override
+	public void save(JobApplicationHistory jobApplicationHistory) {
+		jpaJobApplicationHistoryRepository.save(jobApplicationHistory);
 	}
 }

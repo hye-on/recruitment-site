@@ -43,4 +43,19 @@ public class Job extends BaseEntity {
 
 	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<JobApplicationHistory> applicationHistories = new ArrayList<>();
+
+	public void updateJob(String position, String description, Integer recruitmentBonus, List<JobSkill> skillList) {
+		if (position != null && !position.trim().isEmpty()) {
+			this.position = position;
+		}
+		if (description != null && !description.trim().isEmpty()) {
+			this.description = description;
+		}
+		if (recruitmentBonus != null) {
+			this.recruitmentBonus = recruitmentBonus;
+		}
+		if (skillList != null && !skillList.isEmpty()) {
+			this.jobSkills = skillList;
+		}
+	}
 }

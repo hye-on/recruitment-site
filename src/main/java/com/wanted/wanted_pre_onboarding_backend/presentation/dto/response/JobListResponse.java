@@ -2,14 +2,19 @@ package com.wanted.wanted_pre_onboarding_backend.presentation.dto.response;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import com.wanted.wanted_pre_onboarding_backend.domain.entity.Job;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Schema(description = "채용공고 목록 조회 결과")
 @Builder
 @Getter
+@AllArgsConstructor
 public class JobListResponse {
 
 	@Schema(description = "채용공고 목록 조회 결과")
@@ -17,6 +22,7 @@ public class JobListResponse {
 
 	@Builder
 	@Getter
+	@AllArgsConstructor
 	public static class JobItem {
 
 		@Schema(description = "채용공고 id", example = "설여대 기상방")
@@ -39,6 +45,30 @@ public class JobListResponse {
 
 		@Schema(description = "기술 리스트", example = "[\"Spring\", \"Java\", \"Redis\"]")
 		private List<String> skillList;
+
+		protected static JobItem from(Job job) {
+			return JobItem.builder()
+				.jobId(job.getId())
+				.companyName(job.getCompany().getName())
+				.countryName(job.getCompany().getCountryName())
+				.locationName(job.getCompany().getLocationName())
+				.position(job.getPosition())
+				.recruitmentBonus(job.getRecruitmentBonus())
+				.skillList(job.getJobSkills().stream()
+					.map(jobSkill -> jobSkill.getSkill().getName())
+					.collect(Collectors.toList()))
+				.build();
+		}
+	}
+
+	public static JobListResponse from(List<Job> jobList) {
+		List<JobItem> jobItemList = jobList.stream()
+			.map(JobItem::from)
+			.collect(Collectors.toList());
+
+		return JobListResponse.builder()
+			.jobList(jobItemList)
+			.build();
 	}
 
 }
