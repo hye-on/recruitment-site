@@ -6,7 +6,19 @@ import com.github.f4b6a3.ulid.UlidCreator;
 
 public class UUIDGenerator {
 
-	public static UUID generateId() {
+	private UUIDGenerator() {
+
+	}
+
+	private static final class UUIDGeneratorHolder {
+		private static final UUIDGenerator instance = new UUIDGenerator();
+	}
+
+	public static UUIDGenerator getInstance() {
+		return UUIDGeneratorHolder.instance;
+	}
+
+	public UUID generateId() {
 		return UlidCreator.getMonotonicUlid().toUuid();
 	}
 }

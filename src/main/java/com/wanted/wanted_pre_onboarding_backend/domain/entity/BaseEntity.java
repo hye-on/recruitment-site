@@ -28,7 +28,7 @@ public abstract class BaseEntity {
 
 	@PrePersist
 	protected void onCreate() {
-		id = UUIDGenerator.generateId();
+		id = UUIDGenerator.getInstance().generateId();
 		LocalDateTime now = LocalDateTime.now();
 		this.createdAt = now;
 		this.updatedAt = now;
