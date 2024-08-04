@@ -174,7 +174,10 @@
 # 🛠️ 비기능적 요구사항
 
 1. 코드 가독성과 일관성을 지킵니다.
-    - 블라블라
+    - 코딩 컨벤션 세팅
+        - [네이버 코딩 컨벤션](https://github.com/naver/hackday-conventions-java)을 기반하여 세팅하였습니다.
+        - `File > Setting > Editor > Code Style > Java`를 설정하여 일관된 코딩 컨벤션을 유지하도록 하였습니다.
+        - `Tools > Actions on Save`에서 `Reformat code`와 `Optimize imports` 옵션을 체크하여 저장할 때 포멧팅을 해주도록 하였고 이를 통해 코딩 컨벤션 누락을 방지하도록 하였습니다.
 2. git commit 컨벤션을 준수합니다.
     - feat: 새로운 기능
     - fix: 버그 수정
