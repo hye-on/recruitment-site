@@ -34,7 +34,7 @@ CREATE TABLE skill (
    name        VARCHAR(100)    NOT NULL COMMENT '기술 이름',
    created_at  DATETIME        NOT NULL COMMENT '생성일',
    updated_at  DATETIME        NOT NULL COMMENT '수정일',
-   PRIMARY KEY (id)
+   PRIMARY KEY (id),
    UNIQUE KEY unique_name (name)
 );
 
