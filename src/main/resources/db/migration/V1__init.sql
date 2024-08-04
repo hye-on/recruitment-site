@@ -18,12 +18,13 @@ CREATE TABLE company (
 );
 
 CREATE TABLE job (
-    id          BINARY(16)      NOT NULL COMMENT '채용공고 id',
-    company_id  BINARY(16)      NOT NULL COMMENT '회사 id',
-    position    VARCHAR(100)    NOT NULL COMMENT '채용 포지션',
-    description VARCHAR(255)    NOT NULL COMMENT '채용 내용',
-    created_at  DATETIME        NOT NULL COMMENT '생성일',
-    updated_at  DATETIME        NOT NULL COMMENT '수정일',
+    id                  BINARY(16)      NOT NULL COMMENT '채용공고 id',
+    company_id          BINARY(16)      NOT NULL COMMENT '회사 id',
+    position            VARCHAR(100)    NOT NULL COMMENT '채용 포지션',
+    description         VARCHAR(255)    NOT NULL COMMENT '채용 내용',
+    recruitment_bonus   INT             NOT NULL COMMENT '채용 보상금',
+    created_at          DATETIME        NOT NULL COMMENT '생성일',
+    updated_at          DATETIME        NOT NULL COMMENT '수정일',
     PRIMARY KEY (id),
     CONSTRAINT fk_job_company FOREIGN KEY (company_id) REFERENCES company(id)
 );
@@ -34,6 +35,7 @@ CREATE TABLE skill (
    created_at  DATETIME        NOT NULL COMMENT '생성일',
    updated_at  DATETIME        NOT NULL COMMENT '수정일',
    PRIMARY KEY (id)
+   UNIQUE KEY unique_name (name)
 );
 
 CREATE TABLE job_skill (
