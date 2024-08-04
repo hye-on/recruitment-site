@@ -8,10 +8,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Schema(description = "채용공고 생성")
 @Getter
+@AllArgsConstructor
 public class JobCreateRequest {
 
 	@Schema(description = "회사 id", requiredMode = Schema.RequiredMode.REQUIRED, example = "2c0227b4-5a7b-4094-87a9-f9a36627bd84")
