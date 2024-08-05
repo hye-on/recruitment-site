@@ -6,6 +6,7 @@
     + [목표](#목표)
 - [📄 기능적 요구사항](#-기능적-요구사항)
 - [🛠️ 비기능적 요구사항](#%EF%B8%8F-비기능적-요구사항)
+- [💌 API 명세서](#-api-명세서)
 - [🏗️ ERD 다이어그램](#%EF%B8%8F-erd-다이어그램)
 - [💡기술 스택](#기술-스택)
 
@@ -294,6 +295,19 @@
         - 사용 이유:
             
             애플리케이션 전체에서 하나의 인스턴스만 존재하도록 설계하여 리소스를 효율적으로 사용하고, 전역 상태를 관리하는 데 유리하도록 하였습니다.
+          
+# 💌 API 명세서
+
+- 스웨거 주소
+    - http://15.164.10.5:9020/swagger-ui/index.html#/
+- 테스트 데이터
+    - 유저 id
+        - 프리온보딩 : fefb37e0-4ff6-4d7f-adf4-57c97bfc411c
+    - 회사 id
+        - 원티드 : bb43db89-5303-11ef-bcb8-0e916bee85bb
+        - 쿠팡 : 2c0227b4-5a7b-4094-87a9-f9a36627bd84
+          
+![image](https://github.com/user-attachments/assets/e1714b21-f910-492a-9a33-1aebf42d739a)
 
 # 🏗️ ERD 다이어그램
 
@@ -358,7 +372,7 @@ job ||--|{ job_application_history :has
 ```
 
 # 💡기술 스택
-
+- 배포 방식 : AWS ec2 
 - 언어 및 프레임워크 : **Java & SpringBoot**
 - ORM : **Spring Data JPA**
 - DataBase : **MySQL**
