@@ -7,6 +7,7 @@
 - [📄 기능적 요구사항](#-기능적-요구사항)
 - [🛠️ 비기능적 요구사항](#%EF%B8%8F-비기능적-요구사항)
 - [🏗️ ERD 다이어그램](#%EF%B8%8F-erd-다이어그램)
+- [💡기술 스택](#기술-스택)
 
 # ✨ 개요
 
@@ -355,3 +356,9 @@ job ||--|{job_skill :has
 skill ||--|{job_skill :has 
 job ||--|{ job_application_history :has
 ```
+
+# 💡기술 스택
+
+- 언어 및 프레임워크 : **Java & SpringBoot**
+- ORM : **Spring Data JPA**
+- DataBase : **MySQL**
