@@ -45,6 +45,7 @@ public class JobService {
 		Job job = Job.builder()
 			.company(company)
 			.position(req.getPosition())
+			.recruitmentBonus(req.getRecruitmentBonus())
 			.description(req.getDescription())
 			.build();
 		jobRepository.save(job);

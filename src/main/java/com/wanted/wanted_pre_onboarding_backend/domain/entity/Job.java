@@ -55,7 +55,8 @@ public class Job extends BaseEntity {
 			this.recruitmentBonus = recruitmentBonus;
 		}
 		if (skillList != null && !skillList.isEmpty()) {
-			this.jobSkills = skillList;
+			this.jobSkills.clear();
+			this.jobSkills.addAll(skillList);
 		}
 	}
 }

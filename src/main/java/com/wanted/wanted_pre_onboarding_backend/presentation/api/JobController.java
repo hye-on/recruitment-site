@@ -2,6 +2,7 @@ package com.wanted.wanted_pre_onboarding_backend.presentation.api;
 
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wanted.wanted_pre_onboarding_backend.application.JobService;
 import com.wanted.wanted_pre_onboarding_backend.common.StatusCode;
+import com.wanted.wanted_pre_onboarding_backend.common.exception.BaseException;
 import com.wanted.wanted_pre_onboarding_backend.presentation.dto.BaseResponse;
 import com.wanted.wanted_pre_onboarding_backend.presentation.dto.request.JobApplyRequest;
 import com.wanted.wanted_pre_onboarding_backend.presentation.dto.request.JobCreateRequest;
@@ -27,21 +31,27 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @Tag(name = "채용공고")
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/job")
 public class JobController {
+
+	private final JobService jobService;
 
 	@Operation(summary = "채용공고 생성")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "201", description = "생성 되었습니다."),
 		@ApiResponse(responseCode = "400", description = "요청 값을 확인해주세요."),
 	})
+	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public BaseResponse<StatusCode> createJob(
 		@RequestBody JobCreateRequest req
 	) {
+		jobService.createJob(req);
 		return new BaseResponse<>(StatusCode.SUCCESS_CREATED);
 	}
 
@@ -55,6 +65,10 @@ public class JobController {
 		@Parameter(description = "채용공고 id", example = "ac272eba-4122-4efe-96d0-562f59bc6ffc") @PathVariable UUID jobId,
 		@RequestBody JobUpdateRequest req
 	) {
+		if (req.isEmpty()) {
+			throw new BaseException(StatusCode.BAD_REQUEST);
+		}
+		jobService.updateJob(jobId, req);
 		return new BaseResponse<>(StatusCode.SUCCESS);
 	}
 
@@ -67,6 +81,7 @@ public class JobController {
 	public BaseResponse<StatusCode> deleteJob(
 		@Parameter(description = "채용공고 id", example = "ac272eba-4122-4efe-96d0-562f59bc6ffc") @PathVariable UUID jobId
 	) {
+		jobService.deleteJob(jobId);
 		return new BaseResponse<>(StatusCode.SUCCESS);
 	}
 
@@ -78,7 +93,7 @@ public class JobController {
 	public BaseResponse<JobListResponse> getJobList(
 		@Parameter @RequestParam(required = false) String search
 	) {
-		JobListResponse jobListResponse = JobListResponse.builder().build();
+		JobListResponse jobListResponse = jobService.getJobList(search);
 		return new BaseResponse<>(StatusCode.SUCCESS, jobListResponse);
 	}
 
@@ -91,7 +106,7 @@ public class JobController {
 	public BaseResponse<JobDetailResponse> getJobDetail(
 		@Parameter(description = "채용공고 id", example = "ac272eba-4122-4efe-96d0-562f59bc6ffc") @PathVariable UUID jobId
 	) {
-		JobDetailResponse jobDetailResponse = JobDetailResponse.builder().build();
+		JobDetailResponse jobDetailResponse = jobService.getJobDetail(jobId);
 		return new BaseResponse<>(StatusCode.SUCCESS, jobDetailResponse);
 	}
 
@@ -105,7 +120,7 @@ public class JobController {
 		@Parameter(description = "채용공고 id", example = "ac272eba-4122-4efe-96d0-562f59bc6ffc") @PathVariable UUID jobId,
 		@RequestBody JobApplyRequest req
 	) {
-
+		jobService.applyJob(req.getUserId(), jobId);
 		return new BaseResponse<>(StatusCode.SUCCESS_CREATED);
 	}
 }
