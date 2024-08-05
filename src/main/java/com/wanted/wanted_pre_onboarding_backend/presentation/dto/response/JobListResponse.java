@@ -2,7 +2,6 @@ package com.wanted.wanted_pre_onboarding_backend.presentation.dto.response;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import com.wanted.wanted_pre_onboarding_backend.domain.entity.Job;
 
@@ -56,7 +55,7 @@ public class JobListResponse {
 				.recruitmentBonus(job.getRecruitmentBonus())
 				.skillList(job.getJobSkills().stream()
 					.map(jobSkill -> jobSkill.getSkill().getName())
-					.collect(Collectors.toList()))
+					.toList())
 				.build();
 		}
 	}
@@ -64,7 +63,7 @@ public class JobListResponse {
 	public static JobListResponse from(List<Job> jobList) {
 		List<JobItem> jobItemList = jobList.stream()
 			.map(JobItem::from)
-			.collect(Collectors.toList());
+			.toList();
 
 		return JobListResponse.builder()
 			.jobList(jobItemList)

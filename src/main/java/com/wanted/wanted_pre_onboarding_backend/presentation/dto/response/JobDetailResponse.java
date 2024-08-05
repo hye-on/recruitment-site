@@ -2,7 +2,6 @@ package com.wanted.wanted_pre_onboarding_backend.presentation.dto.response;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import com.wanted.wanted_pre_onboarding_backend.domain.entity.Job;
 
@@ -60,19 +59,32 @@ public class JobDetailResponse {
 		private List<String> skillList;
 
 		public static OtherJob from(Job job) {
+			List<String> skillList = job
+				.getJobSkills()
+				.stream()
+				.map(jobSkill -> jobSkill.getSkill().getName())
+				.toList();
+
 			return OtherJob.builder()
 				.jobId(job.getId())
 				.position(job.getPosition())
 				.recruitmentBonus(job.getRecruitmentBonus())
-				.skillList(job.getJobSkills().stream().map(o -> o.getSkill().toString()).toList())
+				.skillList(skillList)
 				.build();
 		}
 	}
 
 	public static JobDetailResponse from(Job currentJob, List<Job> jobList) {
-		List<OtherJob> otherJobList = jobList.stream()
+		List<OtherJob> otherJobList = jobList
+			.stream()
 			.map(OtherJob::from)
-			.collect(Collectors.toList());
+			.toList();
+
+		List<String> skillList = currentJob
+			.getJobSkills()
+			.stream()
+			.map(skill -> skill.getSkill().getName())
+			.toList();
 
 		return JobDetailResponse.builder()
 			.companyName(currentJob.getCompany().getName())
@@ -81,7 +93,7 @@ public class JobDetailResponse {
 			.position(currentJob.getPosition())
 			.recruitmentBonus(currentJob.getRecruitmentBonus())
 			.description(currentJob.getDescription())
-			.skillList(currentJob.getJobSkills().stream().map(o -> o.getSkill().toString()).toList())
+			.skillList(skillList)
 			.otherJobList(otherJobList)
 			.build();
 	}
