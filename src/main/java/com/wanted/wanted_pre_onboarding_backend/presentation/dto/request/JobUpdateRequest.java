@@ -2,6 +2,8 @@ package com.wanted.wanted_pre_onboarding_backend.presentation.dto.request;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class JobUpdateRequest {
 	@Schema(description = "기술 리스트", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "[\"Compose\", \"kotlin\"]")
 	private List<String> skillList;
 
+	@JsonIgnore
 	public boolean isEmpty() {
 		return (position == null || position.trim().isEmpty()) &&
 			recruitmentBonus == null &&
