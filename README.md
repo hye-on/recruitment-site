@@ -1,4 +1,4 @@
-# wanted-pre-onboarding-backend
+# recruitment-site
 
 ## [목차](#--)
 - [✨ 개요](#-개요)
